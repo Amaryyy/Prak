@@ -1,22 +1,22 @@
-import sympy as sp  # Импортируем библиотеку SymPy для работы с символическими вычислениями
+import sympy as sp  
 
 def get_user_input():
-    # Запрос количества дифференциальных уравнений в системе у пользователя
+    
     n = int(input("Введите кол-во диф уравнений в системе: "))
 
     # Определение символов
-    t = sp.symbols('t')  # Время t
-    x = sp.symbols(f'x1:{n + 1}')  # Переменные состояния x1, x2, ..., xn
-    a, b, w, c = sp.symbols('a b w c')  # Параметры a, b, w, c
-    u = sp.symbols('u')  # Переменная управления u
-    p = sp.symbols(f'p1:{n + 1}')  # Переменные p1, p2, ..., pn
-    T = sp.symbols('T1')  # Параметр T1
+    t = sp.symbols('t')  
+    x = sp.symbols(f'x1:{n + 1}')  
+    a, b, w, c = sp.symbols('a b w c')  
+    u = sp.symbols('u')  
+    p = sp.symbols(f'p1:{n + 1}')  
+    T = sp.symbols('T1')  
 
     # Ввод правых частей уравнений от пользователя и их симв. преобразование
     x_dot = []
     for i in range(n):
-        eq_str = input(f"Введите правую часть x{i + 1}): ")  # Ввод правой части уравнения для xi
-        x_dot.append(sp.sympify(eq_str))  # Преобразование строки в симв. выражение и добавление в список
+        eq_str = input(f"Введите правую часть x{i + 1}): ")  
+        x_dot.append(sp.sympify(eq_str))  
 
     # Ввод функции ψ(t) от пользователя и ее симв. преобразование
     psi_str = input("Введите psi(t): ")
@@ -25,7 +25,7 @@ def get_user_input():
     # Вычисление производной ψ(t) по времени с учетом уравнений для x_dot
     psi_dot = 0
     for i in range(n):
-        psi_dot += sp.diff(psi, x[i]) * x_dot[i]  # Производная ψ по xi умножается на x_dot[i]
+        psi_dot += sp.diff(psi, x[i]) * x_dot[i]  
 
     # Определение выражения res
     res = sp.Add(sp.Mul(T, psi_dot), psi)  # res = T * ψ'(t) + ψ(t)
@@ -35,13 +35,13 @@ def get_user_input():
 
     # Вывод результатов
     print("\nPsi'(t):")
-    print(psi_dot)  # Вывод производной ψ(t)
+    print(psi_dot)  
     print("\nПромежуточный результат:")
-    print(res)  # Вывод выражения res
+    print(res)  
     print("\nu:")
-    print(solution)  # Вывод решения уравнения относительно u
+    print(solution)  
 
-# Вызов функции для сеанса ввода
+
 get_user_input()
 
 
@@ -50,6 +50,4 @@ get_user_input()
 #x2
 #a*x3+b*x3*x3*x3
 #-w*x3+c*u
-#p1*x1+p2*x2+(a*x3+b*x3*x3*x3)
-
-
+#p1+x1+p2*x2+(a*x3+b*x3*x3*x3)
